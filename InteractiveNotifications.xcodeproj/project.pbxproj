@@ -13,6 +13,7 @@
 		49E506B21E936C2C00DFB68B /* InteractiveNotifications.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 49E506B01E936C2C00DFB68B /* InteractiveNotifications.xcdatamodeld */; };
 		49E506B41E936C2C00DFB68B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49E506B31E936C2C00DFB68B /* Assets.xcassets */; };
 		49E506B71E936C2C00DFB68B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E506B51E936C2C00DFB68B /* LaunchScreen.storyboard */; };
+		49E506BF1E9391BE00DFB68B /* Apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 49E506BE1E9391BE00DFB68B /* Apple.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		49E506B31E936C2C00DFB68B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49E506B61E936C2C00DFB68B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49E506B81E936C2C00DFB68B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49E506BE1E9391BE00DFB68B /* Apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Apple.png; path = Assets.xcassets/Apple.imageset/Apple.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		49E506A81E936C2C00DFB68B /* InteractiveNotifications */ = {
 			isa = PBXGroup;
 			children = (
+				49E506BE1E9391BE00DFB68B /* Apple.png */,
 				49E506A91E936C2C00DFB68B /* AppDelegate.swift */,
 				49E506AB1E936C2C00DFB68B /* ViewController.swift */,
 				49E506AD1E936C2C00DFB68B /* Main.storyboard */,
@@ -129,6 +132,7 @@
 				49E506B71E936C2C00DFB68B /* LaunchScreen.storyboard in Resources */,
 				49E506B41E936C2C00DFB68B /* Assets.xcassets in Resources */,
 				49E506AF1E936C2C00DFB68B /* Main.storyboard in Resources */,
+				49E506BF1E9391BE00DFB68B /* Apple.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

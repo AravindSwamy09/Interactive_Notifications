@@ -8,18 +8,86 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound]) { (authorized:Bool, error:Error?) in
+            if !authorized{
+                print("App is useless because you did not allow notifications.")
+            }
+        }
+        
+        //Define Actions
+        let fruitAction = UNNotificationAction(identifier: "addFruit", title: "Add a piece of fruit", options: [])
+        let veggiAction = UNNotificationAction(identifier: "addVegetable", title: "Add a piece of vegetable", options: [])
+        
+        //Add action to a foodcategory
+        let category = UNNotificationCategory(identifier: "foodCategory", actions: [fruitAction,veggiAction], intentIdentifiers: [], options: [])
+        
+        //Add the foodCategory to Notification framework
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        
         return true
     }
 
+    func scheduleNotification() {
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Stay Healthy"
+        content.body = "Just a reminder to eat your favorite healthy food."
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "foodCategory"
+        
+        guard let path = Bundle.main.path(forResource: "", ofType: "png") else {return}
+        
+        let url = URL(fileURLWithPath: path)
+        
+        do{
+            let attachment = try UNNotificationAttachment(identifier: "logo", url: url, options: nil)
+            content.attachments = [attachment]
+        }catch{
+            print("The attachment could not be loaded")
+        }
+        
+        let request = UNNotificationRequest(identifier: "foodNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(request) { (error:Error?) in
+            if let error = error{
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let foodItem = Food(context: persistentContainer.viewContext)
+        foodItem.added = NSDate()
+        
+        if response.actionIdentifier == "addFruit" {
+            foodItem.type = "Fruit"
+        }else{
+            foodItem.type = "Vegetable"
+        }
+        
+        self.saveContext()
+        scheduleNotification()
+        
+        completionHandler()
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

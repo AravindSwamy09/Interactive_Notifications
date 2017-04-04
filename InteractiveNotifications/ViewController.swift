@@ -72,6 +72,9 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func startReminding(_ sender: Any) {
+        appDelegate?.scheduleNotification()
+    }
     
     
     override func didReceiveMemoryWarning() {
